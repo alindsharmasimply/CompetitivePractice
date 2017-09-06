@@ -48,6 +48,6 @@ int main(int argc, char const *argv[]) {
     temp->next = getNewNode(40);
     temp=temp->next;
     temp->next = ptr;
-    detectLoop();git add
+    detectLoop();
     return 0;
 }
