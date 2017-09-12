@@ -63,7 +63,7 @@ void problem() {
     node* fastP = head;
     node* slow_Prev;
     node* midnode = NULL;
-    while(fastP != NULL || fastP->next != NULL) {
+    while(fastP != NULL && fastP->next != NULL) {
         fastP = fastP->next->next;
         slow_Prev = slowP;
         slowP = slowP->next;
@@ -89,11 +89,14 @@ void problem() {
     if (palin == true) {
         std::cout << "The list is a palindrome " << '\n';
     }
+    else{
+        std::cout << "The list is not a palindrome " << '\n';
+    }
 }
 int main(int argc, char const *argv[]) {
     head = NULL;
     insert(2,1);
-    insert(4,2);
+    insert(3,2);
     insert(6,3);
     insert(8,4);
     insert(8,5);
