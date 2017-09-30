@@ -9,9 +9,9 @@ struct lnode {
     int data;
     node* next;
 };
-node* head;
-node* root;
-node* getNewNodeTree(int x)
+lnode* head;
+tnode* root;
+tnode* getNewNodeTree(int x)
 {
     node* temp = new node();
     temp->data = x;
@@ -19,7 +19,7 @@ node* getNewNodeTree(int x)
     temp->left = NULL;
     return temp;
 }
-node* getNewNodeList(int x)
+lnode* getNewNodeList(int x)
 {
     node* temp = new node();
     temp->data = x;
@@ -28,20 +28,35 @@ node* getNewNodeList(int x)
 }
 void insert(int x, int n)
 {
-    node* temp = getNewNodeList(x);
+    lnode* temp = getNewNodeList(x);
     if (n == 1) {
         temp->next = head;
         head = temp;
     }
     else
     {
-        node* temp1 = head;
+        lnode* temp1 = head;
         for (int i = 0; i < n - 2; i++) {
             temp1 = temp1 -> next;
         }
         temp->next = temp1->next;
         temp1->next = temp;
     }
+}
+int countNodes() {
+    lnode* temp = head;
+    int n;
+    while (temp != NULL) {
+        n++;
+        temp = temp->next;
+    }
+    root = listToTree(head, n);
+}
+tnode* listToTree(lnode* head, int n) {
+    if (n <= 0) {
+        return NULL;
+    }
+    
 }
 int main(int argc, char const *argv[]) {
     head = NULL;
