@@ -2,18 +2,18 @@
 using namespace std;
 struct tnode {
     int data;
-    node* right;
-    node* left;
+    tnode* right;
+    tnode* left;
 };
 struct lnode {
     int data;
-    node* next;
+    lnode* next;
 };
 lnode* head;
 tnode* root;
 tnode* getNewNodeTree(int x)
 {
-    node* temp = new node();
+    tnode* temp = new tnode();
     temp->data = x;
     temp->right = NULL;
     temp->left = NULL;
@@ -21,7 +21,7 @@ tnode* getNewNodeTree(int x)
 }
 lnode* getNewNodeList(int x)
 {
-    node* temp = new node();
+    lnode* temp = new lnode();
     temp->data = x;
     temp->next = NULL;
     return temp;
@@ -43,20 +43,39 @@ void insert(int x, int n)
         temp1->next = temp;
     }
 }
-int countNodes() {
+void display(/* arguments */) {
     lnode* temp = head;
-    int n;
+    while (temp != NULL) {
+        std::cout << temp->data << ' ';
+        temp = temp->next;
+    }
+}
+tnode* listToTree(lnode* h, int n) {
+    if (n <= 0) {
+        return NULL;
+    }
+    tnode* left = listToTree(h, n/2);
+    tnode* roo = getNewNodeTree(h->data);
+    roo->left = left;
+    h = h->next;
+    roo->right = listToTree(h, n - n/2 -1);
+    return roo;
+}
+void countNodes() {
+    lnode* temp = head;
+    int n = 0;
     while (temp != NULL) {
         n++;
         temp = temp->next;
     }
     root = listToTree(head, n);
 }
-tnode* listToTree(lnode* head, int n) {
-    if (n <= 0) {
-        return NULL;
+void displayTree(tnode* t) {
+    if (t != NULL) {
+        displayTree(t->left);
+        std::cout << t->data << ' ';
+        displayTree(t->right);
     }
-    
 }
 int main(int argc, char const *argv[]) {
     head = NULL;
@@ -69,5 +88,9 @@ int main(int argc, char const *argv[]) {
     insert(6,6);
     insert(7,7);
     insert(8,8);
+    display();
+    std::cout  << '\n';
+    countNodes();
+    displayTree(root);
     return 0;
 }
