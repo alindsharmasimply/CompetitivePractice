@@ -44,7 +44,7 @@ node* rotateLeft(node* X)
     node* Y = X->right;
     X->right = Y->left;
     Y->left = X;
-    X->height = Maximum(Height(X->right), Height(Y->left));
+    X->height = Maximum(Height(X->right), Height(X->left)) + 1;
     Y->height = Maximum(Height(Y->right), X->height);
 }
 node* insert(node* temp, int x)

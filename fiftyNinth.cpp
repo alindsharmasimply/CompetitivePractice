@@ -19,7 +19,7 @@ int Height(node* t)
 }
 node* getNewNode(int x)
 {
-    node* temp = new node()
+    node* temp = new node();
     temp->data = x;
     temp->right = NULL;
     temp->left = NULL;
@@ -31,23 +31,23 @@ node* rotateRight(node* X)
     node* Y = X->left;
     X->left = Y->right;
     Y->right = X;
-    X->height = Maximum(Height(X->left), Height(Y->right)) + 1;
+    X->height = Maximum(Height(X->left), Height(X->right)) + 1;
     Y->height = Maximum(Height(Y->left), X->height);
     return Y;
 }
 node* rotateLeft(node* X)
 {
     node* Y = X->right;
-    X->left = Y->right;
-    Y->right = X;
-    X->height = Maximum(Height(X->left), Height(Y->right)) + 1;
+    X->right = Y->left;
+    Y->left = X;
+    X->height = Maximum(Height(X->left), Height(X->right)) + 1;
     Y->height = Maximum(Height(Y->right), X->height);
     return Y;
 }
 node* insert(node* temp, int x)
 {
     if (temp == NULL) {
-        return NULL;
+        return getNewNode(x);
     }
     if (temp->data > x) {
         temp->left = insert(temp->left, x);
@@ -68,7 +68,7 @@ node* insert(node* temp, int x)
         if (bal < -1 && temp->right->data < x) {
             return rotateLeft(temp);
         }
-        if (bal > 1 && temp->let->data < x) {
+        if (bal > 1 && temp->left->data < x) {
             temp->left = rotateLeft(temp->left);
             return rotateRight(temp);
         }
@@ -77,6 +77,21 @@ node* insert(node* temp, int x)
             return rotateLeft(temp);
         }
         return temp;
+}
+int rangeAVL(node* temp, int a, int b)
+{
+    if (temp == NULL) {
+        return 0;
+    }
+    else if (temp->data < a) {
+        return rangeAVL(temp->right, a, b);
+    }
+    else if (temp->data > b) {
+        return rangeAVL(temp->left, a, b);
+    }
+    else if (temp->data >= a && temp->data <= b) {
+        return rangeAVL(temp->left, a, b) + rangeAVL(temp->right, a, b) + 1;
+    }
 }
 int main(int argc, char const *argv[]) {
     node* root = NULL;
@@ -89,6 +104,6 @@ int main(int argc, char const *argv[]) {
     root = insert(root, 5);
     root = insert(root, 7);
     root = insert(root, 9);
-    cout << "Number of nodes are = "<< rangeAVL(root);
+    cout << "Number of nodes are = "<< rangeAVL(root, 5, 8);
     return 0;
 }
