@@ -44,16 +44,51 @@ node* rotateLeft(node* X)
     Y->height = Maximum(Height(Y->right), X->height);
     return Y;
 }
+node* insert(node* temp, int x)
+{
+    if (temp == NULL) {
+        return NULL;
+    }
+    if (temp->data > x) {
+        temp->left = insert(temp->left, x);
+    }
+    if (temp->data < x) {
+        temp->right = insert(temp->right, x);
+    }
+    else
+        return temp;
+
+        temp->height = Maximum(Height(temp->left), Height(temp->right)) + 1;
+
+        int bal = Height(temp->left) - Height(temp->right);
+
+        if (bal > 1 && temp->left->data > x) {
+            return rotateRight(temp);
+        }
+        if (bal < -1 && temp->right->data < x) {
+            return rotateLeft(temp);
+        }
+        if (bal > 1 && temp->let->data < x) {
+            temp->left = rotateLeft(temp->left);
+            return rotateRight(temp);
+        }
+        if (bal < -1 && temp->right->data > x) {
+            temp->right = rotateRight(temp->right);
+            return rotateLeft(temp);
+        }
+        return temp;
+}
 int main(int argc, char const *argv[]) {
     node* root = NULL;
-    root = insert();
-    root = insert();
-    root = insert();
-    root = insert();
-    root = insert();
-    root = insert();
-    root = insert();
-    root = insert();
+    root = insert(root, 2);
+    root = insert(root, 4);
+    root = insert(root, 10);
+    root = insert(root, 6);
+    root = insert(root, 8);
+    root = insert(root, 3);
+    root = insert(root, 5);
+    root = insert(root, 7);
+    root = insert(root, 9);
     cout << "Number of nodes are = "<< rangeAVL(root);
     return 0;
 }
