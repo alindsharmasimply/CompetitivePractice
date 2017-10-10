@@ -1,4 +1,0 @@
-C:\Users\S K SHARMA\Desktop\CompetitivePractice\Seventieth.cpp: In function 'int main(int, const char**)':
-C:\Users\S K SHARMA\Desktop\CompetitivePractice\Seventieth.cpp:6:30: error: invalid conversion from 'int*' to 'int' [-fpermissive]
-     int j = find(a, a + 6, 13);
-                              ^
