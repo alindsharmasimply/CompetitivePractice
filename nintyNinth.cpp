@@ -19,7 +19,7 @@ int main() {
                 k++;
             }
     }
-    if (k == 10) {
+    if (k == 1) {
         cout << "YES" << '\n';
     }
     else
